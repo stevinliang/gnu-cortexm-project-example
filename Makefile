@@ -51,12 +51,15 @@ SECONDARY_SIZE += $(TARGET_SIZE)
 all: $(TARGET_ELF) secondary-outputs
 
 %.o : %.c
-	$(CC) $(CFLAGS) $(INCLUDES) -MF"$(@:%.o=%.d)" -MT"$(@)" -c -o $@ $<
+	@echo $(CC) $< -o $@ 
+	@$(CC) $(CFLAGS) $(INCLUDES) -MF"$(@:%.o=%.d)" -MT"$(@)" -c -o $@ $<
+	@echo ' '
 
 $(TARGET_ELF): $(OBJS)
 	@echo 'Building target: $@'
 	@echo 'Invoking: Cross ARM C Linker'
-	$(CC) $(LDFLAGS) -o $@ $(OBJS)
+	@echo LD $@ 
+	@$(CC) $(LDFLAGS) -o $@ $(OBJS)
 	@echo 'Finished building target: $@'
 	@echo ' '
 
@@ -75,7 +78,7 @@ $(TARGET_SIZE): $(TARGET_ELF)
 # Other Targets
 
 clean:
-	-$(RM) $(OBJS) $(OBJDS) $(TARGET_ELF) $(TARGET_HEX) $(TARGET_MAP)
+	@-$(RM) $(OBJS) $(OBJDS) $(TARGET_ELF) $(TARGET_HEX) $(TARGET_MAP)
 
 secondary-outputs: $(SECONDARY_FLASH) $(SECONDARY_SIZE)
 

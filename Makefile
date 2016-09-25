@@ -32,7 +32,7 @@ C_FILES := $(foreach dir, $(DIRS), $(wildcard $(dir)/*.c))
 OBJS := $(patsubst %.c, %.o, $(C_FILES))
 OBJDS := $(patsubst %.c, %.d, $(C_FILES))
 
-CFLAGS := -mcpu=cortex-m3 -mthumb -Og -fmessage-length=0 -fsigned-char \
+CFLAGS := -mcpu=cortex-m3 -mthumb -O0 -fmessage-length=0 -fsigned-char \
 			-ffunction-sections -fdata-sections -ffreestanding \
 			-flto -Werror -Wunused -Wuninitialized -Wall \
 			-Wextra -Wpointer-arith -Wshadow -Wlogical-op \
